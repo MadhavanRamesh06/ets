@@ -1,0 +1,87 @@
+{% extends 'master.html' %}
+{% load static %}
+{% block title%}Assignment Management{% endblock %}
+{% block content %}
+<section id="grade-tracking">
+    <div class="pagetitle">
+        <h1>Assignment Management</h1>        
+            <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item active">Assignment management</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Assignment Name</th>
+                                <th scope="col">Course</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Due Date</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for assignment in assignments %}
+                            <tr>
+                                <td>{{ assignment.assignment_name }}</td>
+                                <td>{{ assignment.course.course_name }}</td>
+                                <td>{{ assignment.description }}</td>
+                                <td>{{ assignment.due_date }}</td>
+                                <td>
+                                    <!-- Provide links to edit and delete assignment -->
+                                    <a href="{% url 'edit_assignment' assignment.id %}">Edit</a> |
+                                    <a href="{% url 'delete_assignment' assignment.id %}">Delete</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="add-assignment">
+    <div class="card">
+        <div class="card-body">
+            <h2 class="card-title">Add Assignment</h2>
+            <form action="{% url 'add_assignment' %}" class="row" method="post">
+                {% csrf_token %}
+                <div class="col-md-6">
+                    <label for="course" class="form-label">Course</label>
+                    <select name="course" class="form-select" id="course">
+                        {% for course in courses %}
+                        <option value="{{ course.id }}">{{ course.course_name }}</option>
+                        {% endfor %}
+                    </select><br>
+                </div>
+                <div class="col-md-6">
+                    <label for="assignment_name" class="form-label">Assignment Name</label>
+                    <input type="text" class="form-control" name="assignment_name" id="assignment_name" required><br>
+                </div>
+                <div class="col-md-6">
+                    <label for="due_date" class="form-label">Due Date</label>
+                    <input type="date" name="due_date" id="due_date" class="form-control" required><br>
+                </div>
+                <div class="col-md-6">
+                    <label for="description" class="form-label">Description</label><br>
+                    <textarea name="description" id="description" class="form-control" rows="1"
+                        cols="50"></textarea><br>
+                </div>
+                <div class="col-md-6">
+                    <button class="btn btn-primary" type="submit">Add Assignment</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</section>
+{% endblock %}

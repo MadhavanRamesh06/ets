@@ -1,0 +1,83 @@
+{% extends 'master.html' %}
+{% load static %}
+{% block title%}Assignment Management{% endblock %}
+{% block content %}
+<section id="grade-tracking">
+    <div class="pagetitle">
+        <h1>Course Management</h1>        
+            <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item active">Course management</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Course</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Instructor</th>
+                                <th scope="col">Semester</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for course in courses %}
+                            <tr>
+                                <td>{{ course.course_name }}</td>
+                                <td>{{ course.description }}</td>
+                                <td>{{ course.instructor_name }}</td>
+                                <td>{{ course.semester }}</td>
+                                <td>
+                                    
+                                    <a href="{% url 'edit_course' course.id %}">Edit</a> |
+                                    <a href="{% url 'delete_course' course.id %}">Delete</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="add-course">
+    <div class="card">
+        <div class="card-body">
+            <h2 class="card-title">Add Course</h2>
+            <form action="{% url 'add_course' %}" class="row" method="post">
+                {% csrf_token %}
+                <div class="col-md-6">
+                    <label for="course" class="form-label">Course</label>
+                    <input type="text" name="course" id="course" class="form-control">
+                </div>
+                <div class="col-md-6">
+                    <label for="instructor_name" class="form-label">Instructor Name</label>
+                    <input type="text" class="form-control" name="instructor_name" id="instructor_name" required><br>
+                </div>
+                <div class="col-md-6">
+                    <label for="semester" class="form-label">Semester</label>
+                    <input type="text" name="semester" id="semester" class="form-control" required><br>
+                </div>
+                <div class="col-md-6">
+                    <label for="description" class="form-label">Description</label><br>
+                    <textarea name="description" id="description" class="form-control" rows="1"
+                        cols="50"></textarea><br>
+                </div>
+                <div class="col-md-6">
+                    <button class="btn btn-primary" type="submit">Add Course</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</section>
+{% endblock %}

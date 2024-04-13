@@ -1,0 +1,59 @@
+{% extends 'master.html' %}
+{% load static %}
+{% block title%}Course Details{% endblock %}
+{% block content %}
+<div class="pagetitle">
+    <h1>{{ course.course_name }}   <span style="font-size: small;"><a href="{% url 'edit_course' course.id %}">Edit</a> | <a href="{% url 'delete_course' course.id %}">Delete</a></span></h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item active">Course Details</li>
+        </ol>
+    </nav>
+</div>
+<section id="course-info">
+    <div class="row">
+        <div class="col-md-6">
+            <p><strong>Instructor:</strong> {{ course.instructor_name }}</p>
+            <p><strong>Description:</strong> {{ course.description }}</p>
+            <p><strong>Semester/Term:</strong> {{ course.semester }}</p>
+            
+        </div>
+    </div>
+
+</section>
+
+<section id="grade-tracking">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <!-- Table with stripped rows -->
+                    <table class="table datatable">
+                        <thead>
+                            <tr>
+                                <th>Assignment</th>
+                                <th>Description</th>
+                                <th data-type="date" data-format="YYYY/DD/MM">
+                                    Due Date
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for assignment in assignments %}
+
+                            <tr>
+                                <td>{{assignment.assignment_name}}</td>
+                                <td>{{assignment.description}}</td>
+                                <td>{{assignment.due_date}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

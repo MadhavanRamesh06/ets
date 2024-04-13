@@ -1,0 +1,44 @@
+{% extends 'master.html' %}
+{% load static %}
+{% block title%}Grade Tracking{% endblock %}
+{% block content %}
+<section id="grade-list">
+    <div class="pagetitle">
+        <h1>Grade </h1>     
+            <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item active">Grades</li>
+            </ol>
+        </nav>
+    </div>
+    
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <!-- Table with stripped rows -->
+                    <table class="table datatable">
+                        <thead>
+                            <tr>
+                                <th>Course</th>
+                                <th>Assignment</th>
+                                <th>Grade</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for grade in grades %}
+                            <tr>
+                                <td>{{ grade.course }}</td>
+                                <td>{{ grade.assignment}}</td>
+                                <td>{{ grade.grade }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

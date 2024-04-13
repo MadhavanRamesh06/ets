@@ -1,0 +1,36 @@
+{% extends 'master.html' %}
+{% block title %}Edit Course{% endblock %}
+
+{% block content %}
+<section id="edit_course">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Edit Course</h5>
+    <form method="post" class="row">
+        {% csrf_token %}
+                <div class="col-md-6 pt-2">
+                    <label for="id_name" class="form-label">Course Name:</label>
+                    {{form.course_name}}
+                </div>
+                <div class="col-md-6 pt-2">
+                    <label for="id_name" class="form-label">Instructor Name</label>
+                    {{ form.instructor_name}}
+                </div>
+               
+                <div class="col-md-6 pt-2">
+                    <label for="id_description" class="form-label">Description:</label>
+                    {{form.description}}
+                </div>
+                <div class="col-md-6 pt-2">
+                    <label for="id_due_date" class="form-label">Semester:</label>
+                    {{form.semester}}
+                </div>
+                <div class="col-md-6 pt-2">
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+            
+
+{% endblock %}
