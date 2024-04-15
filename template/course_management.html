@@ -56,8 +56,8 @@
             <form action="{% url 'add_course' %}" class="row" method="post">
                 {% csrf_token %}
                 <div class="col-md-6">
-                    <label for="course" class="form-label">Course</label>
-                    <input type="text" name="course" id="course" class="form-control">
+                    <label for="course_name" class="form-label">Course</label>
+                    <input type="text" name="course_name" id="course_name" class="form-control">
                 </div>
                 <div class="col-md-6">
                     <label for="instructor_name" class="form-label">Instructor Name</label>

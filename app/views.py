@@ -122,7 +122,6 @@ def add_assignment(request):
             return redirect('assignment_management')
     else:
         form = AssignmentForm()
-    return render(request, 'add_assignment.html', {'form': form})
 
 @login_required
 def course_management(request):
@@ -133,11 +132,9 @@ def course_management(request):
 @login_required
 def add_course(request):
     if request.method == 'POST':
-        # If form is submitted
         form = CourseForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('course_management')
     else:
         form = CourseForm()
-    return render(request, 'add_course.html', {'form': form})
