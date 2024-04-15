@@ -4,7 +4,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
-from .forms import *
+from .forms import AssignmentForm ,CourseForm
 from .models import Course, Grade, Assignment
 
 def login_view(request):
@@ -124,17 +124,17 @@ def add_assignment(request):
         form = AssignmentForm()
 
 @login_required
-def course_management(request):
-    user = request.user
-    courses = Course.objects.filter(user=user)
-    return render(request,'course_management.html',{'courses':courses})
-
-@login_required
 def add_course(request):
     if request.method == 'POST':
-        form = CourseForm(request.POST)
+        form =CourseForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('course_management')
     else:
         form = CourseForm()
+
+@login_required
+def course_management(request):
+    user = request.user
+    courses = Course.objects.filter(user=user)
+    return render(request,'course_management.html',{'courses':courses})
